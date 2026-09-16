@@ -1,0 +1,22 @@
+# .NET
+bin/
+obj/
+
+# Node / React
+node_modules/
+dist/
+
+# Variables de entorno
+.env
+.env.*
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+
+# Archivos del sistema
+Thumbs.db
+.DS_Store
+
+# Logs
+*.log

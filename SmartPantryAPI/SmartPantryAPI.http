@@ -1,0 +1,6 @@
+@SmartPantryAPI_HostAddress = http://localhost:5117
+
+GET {{SmartPantryAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
