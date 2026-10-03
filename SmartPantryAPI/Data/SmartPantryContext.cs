@@ -15,10 +15,17 @@ namespace SmartPantryAPI.Data
         public DbSet<Inventario> Inventario { get; set; }
         public DbSet<ListaCompra> ListasCompras { get; set; }
         public DbSet<DetalleListaCompra> DetalleListaCompras { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            // ---- usuarios ----
+            modelBuilder.Entity<Usuario>(entity =>
+            {
+                entity.HasIndex(e => e.Correo).IsUnique();
+            });
 
             // ---- categorias ----
             modelBuilder.Entity<Categoria>(entity =>

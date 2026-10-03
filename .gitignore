@@ -20,3 +20,14 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Credenciales privadas
+SmartPantryAPI/appsettings.json
+
+# Archivos de publicación
+publish/
+SmartPantryFinal*.zip
+
+# Frontend generado
+SmartPantryWeb/node_modules/
+SmartPantryWeb/dist/

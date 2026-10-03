@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartPantryAPI.Data;
@@ -5,6 +6,7 @@ using SmartPantryAPI.Models;
 
 namespace SmartPantryAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [Route("api/DetallesListaCompras")]
     [ApiController]
