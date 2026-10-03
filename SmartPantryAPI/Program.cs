@@ -25,6 +25,18 @@ builder.Services.AddDbContext<SmartPantryContext>(options =>
 builder.Services.AddScoped<IJwtService, JwtService>();
 
 // ======================================================
+// REDIRECCIÓN HTTPS
+// ======================================================
+
+// Fuerza las solicitudes HTTP a utilizar HTTPS.
+// Somee ya tiene el certificado SSL configurado en el puerto 443.
+builder.Services.AddHttpsRedirection(options =>
+{
+    options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
+    options.HttpsPort = 443;
+});
+
+// ======================================================
 // AUTENTICACIÓN JWT
 // ======================================================
 
@@ -131,6 +143,13 @@ builder.Services.AddSwaggerGen(c =>
 var app = builder.Build();
 
 // ======================================================
+// HTTPS
+// ======================================================
+
+// Cualquier solicitud por HTTP será redirigida automáticamente a HTTPS.
+app.UseHttpsRedirection();
+
+// ======================================================
 // SWAGGER
 // ======================================================
 
@@ -148,10 +167,10 @@ app.UseSwaggerUI(options =>
 // FRONTEND REACT / VITE
 // ======================================================
 
-// Permite que "/" busque automáticamente wwwroot/index.html
+// Permite que "/" busque automáticamente wwwroot/index.html.
 app.UseDefaultFiles();
 
-// Permite servir index.html, JS, CSS, imágenes, etc.
+// Permite servir index.html, JavaScript, CSS, imágenes, etc.
 app.UseStaticFiles();
 
 // ======================================================
@@ -169,8 +188,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// La información de estado ya NO estará en "/".
-// Ahora estará en "/api/status".
+// Endpoint para comprobar que la API está funcionando.
 app.MapGet("/api/status", () => Results.Ok(new
 {
     api = "SmartPantryAPI",
@@ -182,8 +200,8 @@ app.MapGet("/api/status", () => Results.Ok(new
 // REACT ROUTER
 // ======================================================
 
-// Si alguien entra a una ruta del frontend que ASP.NET
-// no conoce, devuelve index.html y React se encarga.
+// Cualquier ruta que no pertenezca a la API devuelve index.html
+// para que React pueda manejar la navegación.
 app.MapFallbackToFile("index.html");
 
 // ======================================================
